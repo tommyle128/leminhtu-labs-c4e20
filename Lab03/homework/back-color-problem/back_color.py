@@ -27,13 +27,54 @@ shapes = [
 def get_shapes():
     return shapes
 
-
 def generate_quiz():
-    return [
-                'RED',
-                '#4CAF50',
-                randint(0, 1) # 0 : meaning, 1: color
-            ]
+    text_list = []
+    color_list = []
 
+    for detail in shapes:
+        text_list.append(detail['text'])
+        color_list.append(detail['color'])
+    
+    quiz = [
+        choice(text_list).upper(),
+        choice(color_list),
+        randint(0, 1)
+    ]
+    
+    return quiz
+
+    
 def mouse_press(x, y, text, color, quiz_type):
-    return True
+    from inside import is_inside
+    
+    point = [x, y]
+    rect_detail = []
+
+    for detail in shapes:
+        rect_detail = detail['rect']
+        press = is_inside(point, rect_detail)
+        if press:
+            if quiz_type == 1:
+                if detail['color'] == color:
+                    return True
+                else:
+                    return False
+            elif quiz_type == 0:
+                if detail['text'].upper() == text:
+                    return True
+                else:
+                    return False
+
+    
+    
+    
+
+    
+
+
+
+
+
+    
+
+
